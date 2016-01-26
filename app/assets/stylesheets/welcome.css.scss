@@ -1,16 +1,2 @@
-@import "variables";
-
-.user-info {
-  margin-top:9px;
-  padding:10px;
-}
-
-h1 {
-   color: black;
- }
-
- #index-title {
-   text-align: center;
-   font-size: 15px;
-   color: blue;
- }
+@import "bootstrap-sprockets";
+@import "bootstrap";
