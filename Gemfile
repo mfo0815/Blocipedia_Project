@@ -9,6 +9,8 @@ gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 
+gem 'faker'
+
 gem 'devise'
 
 gem 'pundit'
