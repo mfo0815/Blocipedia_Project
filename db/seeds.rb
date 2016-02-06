@@ -28,7 +28,7 @@ user.skip_reconfirmation!
 user.update_attributes!(
   name: 'Matt Pinch',
   email: '10oneillm@gmail.com',
-  password: 'alpha',
+  password: 'alphabet123',
   role: 'admin'
 )
 
@@ -37,7 +37,7 @@ user.skip_reconfirmation!
 user.update_attributes!(
   name: 'Mike ONeill',
   email: 'mgm@gmail.com',
-  password: 'alphabet',
+  password: 'alphabet123',
   role: 'premium'
 )
 
