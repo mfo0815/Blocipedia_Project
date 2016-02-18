@@ -50,4 +50,25 @@ class ApplicationPolicy
   def scope
     record.class
   end
+
+  # --------------------------- Utility methods --------------------------------
+
+  def record_exists?
+    scope.where(:id => record.id).exists?
+  end
+
+  def record_owned_by_user?
+    return false if record.user.nil?
+    return false unless user_exists?
+    record.user == user
+  end
+
+  def user_exists?
+    user.present?
+  end
+
+  def user_is?(*roles)
+    user_exists? && roles.any? { |role| user.send(:"#{role}?") }
+  end
+
 end

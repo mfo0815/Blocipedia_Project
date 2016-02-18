@@ -1,9 +1,33 @@
-<br/>
-<div class="jumbotron">
-  <h1>Welcome to Blocipedia</h1>
+<div class='container header'>
+  <div class='inner-wrapper'>
+    <div class='row'>
+      <h1>Blocipedia</h1>
+    </div>
+  </div>
 </div>
-<div class='row col-md-6'>
-  <a href="<%= new_user_registration_path %>" class='btn btn-primary btn-lg' role='button'>
-    Sign up!
-  </a>
+<div class='container outer-wrapper pricing'>
+  <div class='inner-wrapper'>
+    <div class='row'>
+      <div class='col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-2 col-xs-12 standard-features'>
+        <h3>Standard Account <br/> <small>Free</small> </h3>
+        <p>Create public wikis.</p>
+        <p>Edit public wikis.</p>
+        <p><span>Get free experiences.</span></p>
+        <p><span><em>Trial pre-premium</em></span></p>
+        <a href="<%= new_user_registration_path %>" class='btn btn-primary btn-md blue-button' role='button'>
+          Sign up!
+        </a>
+      </div>
+      <div class='col-lg-4 col-md-4 col-xs-12 premium-features'>
+        <h3>Premium Account <br/> <small>$15/mo</small></h3>
+        <p>Create public wikis.</p>
+        <p class='background-tinted'>Edit public wikis.</p>
+        <p>Create private wikis.</p>
+        <p>Add collaborators to private wikis.</p>
+        <a href="<%= new_user_registration_path %>" class='btn btn-primary btn-md blue-button' role='button'>
+          Sign up!
+        </a>
+      </div>
+    </div>
+  </div>
 </div>

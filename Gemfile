@@ -15,6 +15,8 @@ gem 'figaro', '1.0'
 
 gem 'faker'
 
+gem 'redcarpet'
+
 gem 'devise'
 
 gem 'pundit'
