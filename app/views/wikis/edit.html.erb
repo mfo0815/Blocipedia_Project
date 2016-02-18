@@ -1,17 +1,25 @@
-<h1>Edit your Wiki: <%= @wiki.title %></h1>
-
-<div>
-  <%= form_for @wiki do |f| %>
+<div class='container filler-height'>
+  <div class='inner-wrapper'>
+    <h1>Edit your Wiki</h1>
+    <%= form_for @wiki do |f| %>
     <div class='form-group'>
       <%= f.label :title %>
       <%= f.text_field :title, class: 'form-control'%>
     </div>
     <div class='form-group'>
       <%= f.label :body %>
-      <%= f.text_field :body, class: 'form-control'%>
+      <%= f.text_area :body, rows: 12,  class: 'form-control'%>
     </div>
-    <div class='form-group'>
-      <%= f.submit "Save", class: 'btn btn-success' %>
+    <% if policy(@wiki).make_private? %>
+      <div class='form-group'>
+        <%= f.label :public, class: 'checkbox' do %>
+          <%= f.check_box :public, {}, false, true %> Make wiki private
+        <% end %>
+        <div class='form-group'>
+          <%= f.submit "Save", class: 'btn btn-success' %>
+        </div>
+    <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
+<% end %>

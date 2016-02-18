@@ -1,9 +1,8 @@
-<div class="media">
-  <div class="media-body">
-    <div class="media-heading">
-      <h1><%= markdown_to_html @wiki.title %></h1>
-    </div>
-    <p><%= markdown_to_html @wiki.body %></p>
+<div class='container filler-height'>
+  <div class='inner-wrapper'>
+    <h1><%= @wiki.title %></h1>
+    <%= public_or_private %>
+    <p><%= markdown_to_html(@wiki.body) %></p>
     <% if policy(@wiki).edit? %>
       <%= link_to 'Edit Wiki', edit_wiki_path(@wiki.id), class: 'btn btn-success' %>
     <% end %>
