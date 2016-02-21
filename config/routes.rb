@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
+    resources :wikis
 
-  devise_for :users, controllers: { registrations: "users/registrations" }
-  resources :users, only: [:show]
+    resources :charges, only: [:new, :create]
 
-  resources :wikis
+    devise_for :users
 
-  resources :charges, only: [:new, :create]
-  delete '/downgrade', to: 'charges#downgrade'
+    get 'about' => 'welcome#about'
 
-  root to: 'welcome#index'
-
-end
+    root to: 'welcome#index'
+  end
