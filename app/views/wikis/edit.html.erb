@@ -1,25 +1,39 @@
-<div class='container filler-height'>
-  <div class='inner-wrapper'>
-    <h1>Edit your Wiki</h1>
-    <%= form_for @wiki do |f| %>
-    <div class='form-group'>
-      <%= f.label :title %>
-      <%= f.text_field :title, class: 'form-control'%>
-    </div>
-    <div class='form-group'>
-      <%= f.label :body %>
-      <%= f.text_area :body, rows: 12,  class: 'form-control'%>
-    </div>
-    <% if policy(@wiki).make_private? %>
-      <div class='form-group'>
-        <%= f.label :public, class: 'checkbox' do %>
-          <%= f.check_box :public, {}, false, true %> Make wiki private
+<h1>Edit Wiki</h1>
+
+ <div class="row">
+   <div class="col-md-4">
+     <h3>Guidelines for wikis</h3>
+     <ul>
+       <li>Search Blocipedia in case an article already exists on the subject</li>
+       <li>Practice editing already existing articles</li>
+       <li>Gather sources</li>
+     </ul>
+   </div>
+   <div class="col-md-8">
+     <%= form_for @wiki do |f| %>
+       <div class="form-group">
+         <%= f.label :title %>
+         <%= f.text_field :title, class: 'form-control', placeholder: "Enter wiki title" %>
+       </div>
+       <div class="form-group">
+         <%= f.label :body %>
+         <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
+       </div>
+       <div class="form-group">
+         <%= f.submit "Save", class: 'btn btn-success' %>
+         <%= link_to "Add/Delete Collaborator", new_wiki_collaborator_path(@wiki), class: 'btn btn-primary' %>
+       </div>
+        <% unless current_user.standard? %>
+          <div class="form-group">
+            <%= f.check_box :public, {}, false, true %> Private wiki
+          </div>
         <% end %>
-        <div class='form-group'>
-          <%= f.submit "Save", class: 'btn btn-success' %>
-        </div>
     <% end %>
-    </div>
-  </div>
-</div>
+    <h2>Collaborators</h2>
+    <% @wiki.collaborated_users.each do |collaborator| %>
+      <p class="media-heading">
+        <%= collaborator.email %>
+      </p>
 <% end %>
+   </div>
+ </div>

@@ -1,66 +1,69 @@
 class WikisController < ApplicationController
 
+  before_action :authenticate_user!
+
   def index
     @wikis = policy_scope(Wiki)
   end
 
   def show
     @wiki = Wiki.find(params[:id])
-     unless @wiki.public || current_user
-        flash[:alert] = "You must be signed in to view private topics."
-        redirect_to new_session_path
-     end
+    authorize @wiki
   end
 
   def new
-    @wiki = Wiki.new
+    @wiki = current_user.wikis.new
     authorize @wiki
   end
 
   def create
-    @wiki = current_user.wikis.create(wiki_params)
-    authorize @wiki
-    if @wiki.save
+    wiki = current_user.wikis.build(wiki_params)
+    authorize wiki
+
+    if wiki.save
       flash[:notice] = "Wiki was saved."
-      redirect_to @wiki
+      redirect_to wiki
     else
-      flash[:error] = "There was an error creating your wiki."
-      redirect_to :new
+      flash[:error] = "There was an error saving the wiki. Please try again."
+      render :new
     end
   end
 
   def edit
     @wiki = Wiki.find(params[:id])
+    @users = User.all
     authorize @wiki
+
   end
 
   def update
-    @wiki = Wiki.find(params[:id])
-    authorize @wiki
-    if @wiki.update_attributes(wiki_params)
-      flash[:notice] = "Wiki was successfully updated."
-      redirect_to @wiki
+    wiki = Wiki.find(params[:id])
+    authorize wiki
+
+    if wiki.update_attributes(wiki_params)
+      flash[:notice] = "Wiki has been updated."
+      redirect_to wiki
     else
-      flash[:error] = "There was an error editing the post. Please try again."
-      redirect_to :edit
+      flash[:error] = "There was an error saving the wiki. Please try again."
+      render :new
     end
   end
 
   def destroy
-    @wiki = Wiki.find(params[:id])
-    authorize @wiki
-    if @wiki.destroy
-      flash[:notice] = "Successfully deleted your Wiki."
-      redirect_to wikis_path
+    wiki = Wiki.find(params[:id])
+    authorize wiki
+
+    if wiki.destroy
+      flash[:notice] = "\"#{wiki.title}\" was deleted."
+      redirect_to wiki
     else
-      flash[:error] = "There was an error deleting your Wiki. Please try again."
+      flash[:error] = "There was an error deleting this wiki. Please try again."
       render :show
     end
   end
 
   private
-
   def wiki_params
-    params.require(:wiki).permit(:title, :body)
+    params.require(:wiki).permit(:title, :body, :private)
   end
 end

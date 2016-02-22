@@ -1,15 +1,12 @@
-<div class='container filler-height'>
-  <div class='inner-wrapper'>
-    <h1><%= @wiki.title %></h1>
-    <%= public_or_private %>
-    <p><%= markdown_to_html(@wiki.body) %></p>
-    <% if policy(@wiki).edit? %>
-      <%= link_to 'Edit Wiki', edit_wiki_path(@wiki.id), class: 'btn btn-success' %>
-    <% end %>
-    <% if policy(@wiki).destroy? %>
-      <%= link_to 'Delete Wiki', @wiki, class: 'btn btn-danger',
-          method: :delete,
-          data: { confirm: 'Are you sure you want to delete your Wiki'} %>
-    <% end %>
-  </div>
+<div class="media">
+	<h1><%= @wiki.title %></h1>
+	<p><%= @wiki.body %></p>
+	<%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-xs btn-success' %>
+	<%= link_to "Delete", @wiki, method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: 'Are you sure you want to delete this wiki?' } %>
+	<%= render partial: 'public_private_button' %>
+	<small>Post created <%= time_ago_in_words(@wiki.created_at)%> ago. Last updated on <%= @wiki.updated_at%>.</small>
 </div>
+
+    <div class="col-md-8">
+          <p><%= markdown_to_html @wiki.body %></p>
+    </div>
