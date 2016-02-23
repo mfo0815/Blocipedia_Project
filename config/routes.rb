@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
-    resources :wikis
-
-    resources :charges, only: [:new, :create]
 
     devise_for :users
+      resources :users, only: [:show, :index] do
+        post 'premium_to_standard' => 'users#premium_to_standard', as: :premium_to_standard
+      end
 
-    get 'about' => 'welcome#about'
+      resources :wikis do
+        resources :collaborators
+      end
+      resources :charges
 
-    root to: 'welcome#index'
-  end
+
+      root to: 'welcome#index'
+    end

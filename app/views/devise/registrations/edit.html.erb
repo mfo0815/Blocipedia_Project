@@ -37,7 +37,7 @@
   <p>You're currently a <em><%= current_user.role %> Member</em>.</p>
   <%= button_to "Upgrade Now", new_charge_path, :class => "btn btn-lg btn-primary",method: :get %>
 
-  <h3>Downgrade Or Cancel Account</h3>
+  <h3>Cancel Account</h3>
   <p><%= button_to "Cancel My Blocipedia Account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>
